@@ -32,7 +32,7 @@ local function setQtDeployOnPostbuild(targetExecutable, isDebug)
         config_flag = " --release "
     end
 
-    return "call " .. qt_windeployqt6_path .. " " .. targetExecutable
+    return "call " .. qt_windeployqt6_path .. " " .. targetExecutable .. config_flag
 end
 
 solution "SOGEQtE"
@@ -89,7 +89,7 @@ solution "SOGEQtE"
 
             postbuildcommands
             {
-                setQtDeployOnPostbuild("A:/repo/SOGEQtE/SOGEQtE/SOGEQtE.exe", true)
+                setQtDeployOnPostbuild("%{wks.location}/%{prj.name}/%{prj.name}.exe", true)
             }
 
         filter "configurations:Release"

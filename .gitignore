@@ -59,4 +59,9 @@ bld/
 *.a
 *.lib
 
+# Ignore all in SOGEQte except specified directories
+SOGEQte/
+!SOGEQte/[Ii]nclude/
+!SOGEQte/[Ss]ource/
+
 !Premake5/premake5.exe
