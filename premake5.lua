@@ -3,11 +3,14 @@
 include "Premake5/qt-scripts/qt.lua"
 local qt = premake.extensions.qt
 
-local qt_path = ""
+local qt_path = "A:/DevTools/Qt/6.5.3/msvc2019_64"
 
 local qt_version = "6"
 local qt_libs_path = qt_path .. "/lib"
 local qt_dlls_path = qt_path .. "/bin"
+local qt_plugins_path = qt_path .. "/plugins"
+local qt_qmake_path = qt_libs_path .. "/qmake6.exe"
+local qt_windeployqt6_path = qt_dlls_path .. "/windeployqt6.exe"
 
 local function setQtDllPostBuildCopy(name, isDebug)
     prefix = "Qt" .. qt_version
@@ -21,6 +24,15 @@ local function setQtDllPostBuildCopy(name, isDebug)
     print("Setting postbuild copy comand for " .. libpath)
 
     return "{COPYFILE} " .. libpath .. " %{wks.location}/%{prj.name}"
+end
+
+local function setQtDeployOnPostbuild(targetExecutable, isDebug)
+    config_flag = " --debug "
+    if not isDebug then
+        config_flag = " --release "
+    end
+
+    return "call " .. qt_windeployqt6_path .. " " .. targetExecutable
 end
 
 solution "SOGEQtE"
@@ -77,12 +89,7 @@ solution "SOGEQtE"
 
             postbuildcommands
             {
-                setQtDllPostBuildCopy("Core", true),
-                setQtDllPostBuildCopy("Gui", true),
-                setQtDllPostBuildCopy("Widgets", true),
-                setQtDllPostBuildCopy("Qml", true),
-                setQtDllPostBuildCopy("Network", true), -- Dunno why, but Qt needs it
-
+                setQtDeployOnPostbuild("A:/repo/SOGEQtE/SOGEQtE/SOGEQtE.exe", true)
             }
 
         filter "configurations:Release"
@@ -96,6 +103,5 @@ solution "SOGEQtE"
 
             postbuildcommands
             {
-                setQtDllPostBuildCopy("Core", false),
-                setQtDllPostBuildCopy("Gui", false)
+                setQtDeployOnPostbuild("%{wks.location}/%{prj.name}/%{prj.name}.exe", false)
             }

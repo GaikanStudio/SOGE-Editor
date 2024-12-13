@@ -27,6 +27,7 @@ namespace sogeqte
         QApplication::setApplicationVersion("0.0.1"); // TODO: Add versioning
 
         QApplication* qtApp = new QApplication(argc, argv);
+
         return qtApp;
     }
 
