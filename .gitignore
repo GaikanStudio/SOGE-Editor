@@ -60,9 +60,13 @@ bld/
 *.lib
 
 # Ignore all in SOGEQte except specified directories
-SOGEQte/
-!SOGEQte/[Ii]nclude/
-!SOGEQte/[Ss]ource/
-!SOGEQte/[Rr]esources/
+SOGEQte/[Gg]eneric
+SOGEQte/[Ii]conengines
+SOGEQte/[Ii]mageformats
+SOGEQte/[Nn]etworkinformation
+SOGEQte/[Pp]latforms
+SOGEQte/[Ss]tyles
+SOGEQte/[Tt]ls
+SOGEQte/[Tt]ranslations
 
 !Premake5/premake5.exe
