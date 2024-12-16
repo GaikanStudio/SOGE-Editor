@@ -1,58 +1,45 @@
 #include "SOGEQtE/Core/Application.hpp"
 
-#include <QtCore/qlibraryinfo.h>
-#include <QtCore/qloggingcategory.h>
-#include <QtCore/qtranslator.h>
-
-#include <QtGui/qundostack.h>
-#include <QtGui/qfontdatabase.h>
-#include <QtWidgets/qapplication.h>
-
-#include <QtQml/qqmlfileselector.h>
+#include <QtCore/QLoggingCategory.h>
+#include <QtCore/QResource.h>
 
 
 namespace sogeqte
 {
-    Q_LOGGING_CATEGORY(qtApp, "app.include.sogeqte.core.application")
+    Q_LOGGING_CATEGORY(AppInitial, "SOGEQtE.Core.Application")
 
-    static QGuiApplication* CreateQGuiApplication(int& argc, char** argv, const QString& aApplicationName)
+    QTEApplication::QTEApplication(int& argc, char** argv, const QString& aApplicationName) 
+        : m_sogeStylesheet("DefaultStyle", "resources/soge.qss")
     {
         #if defined(Q_OS_WIN) && QT_VERSION_CHECK(5, 6, 0) <= QT_VERSION && QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
                 QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
         #endif
 
-        QApplication::setOrganizationName("Gaikan");
+        QApplication::setOrganizationName("Gaikan Studio");
         QApplication::setApplicationName(aApplicationName);
         QApplication::setApplicationDisplayName("SOGE Editor");
         QApplication::setApplicationVersion("0.0.1"); // TODO: Add versioning
 
         QApplication* qtApp = new QApplication(argc, argv);
-
-        return qtApp;
-    }
-
-    QTEApplication::QTEApplication(int& argc, char** argv, const QString& aApplicationName)
-        : m_qtApp(CreateQGuiApplication(argc, argv, aApplicationName)), m_qmlAppEngine(new QQmlApplicationEngine())
-    {
-        #if defined(Q_OS_WIN) || defined(Q_OS_MACOS)
-            QQmlFileSelector fileSelector(m_qmlAppEngine.data());
-            fileSelector.setExtraSelectors(QStringList() << QLatin1String("NativeMenuBar"));
-        #endif
-
-        m_qmlAppEngine->load("qrc:/qt/qml/sogeqte/main.qml");
-        if (m_qmlAppEngine->rootObjects().isEmpty())
+        qtApp->setStyleSheet(m_sogeStylesheet.ToString());
+        if (!QResource::registerResource("resources/icons.qrc", "/resources/"))
         {
-            qCDebug(qtApp) << "Failed to load main.qml";
+            qCDebug(AppInitial) << "Failed to register icons resource...";
         }
+
+        m_mainWindow = new QTEMainWindow();
+        m_outlinerWidget = new QTEOutlinerWidget(m_mainWindow);
     }
 
     QTEApplication::~QTEApplication()
     {
-        m_qmlAppEngine.reset();
+        m_qtApplication.reset(nullptr);
     }
 
     int QTEApplication::Run()
     {
-        return m_qtApp->exec();
+        m_outlinerWidget->show();
+        m_mainWindow->show();
+        return m_qtApplication->exec();
     }
 }

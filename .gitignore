@@ -63,5 +63,6 @@ bld/
 SOGEQte/
 !SOGEQte/[Ii]nclude/
 !SOGEQte/[Ss]ource/
+!SOGEQte/[Rr]esources/
 
 !Premake5/premake5.exe
