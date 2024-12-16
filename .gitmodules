@@ -1,0 +1,3 @@
+[submodule "3rdparty/ADS/ADS"]
+	path = 3rdparty/ADS/ADS
+	url = https://github.com/githubuser0xFFFF/Qt-Advanced-Docking-System.git

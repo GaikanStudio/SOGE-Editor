@@ -3,6 +3,9 @@
 
 #include <QtWidgets/QMainWindow.h>
 
+// ADS/DockManager
+#include <DockManager.h>
+
 namespace Ui
 {
     class MainWindow;
@@ -17,6 +20,9 @@ namespace sogeqte
 
     private:
         Ui::MainWindow* m_genUi;
+
+        // Main docking container
+        ads::CDockManager* m_dockManager;
 
     public:
         explicit QTEMainWindow(QWidget* aParent = nullptr);

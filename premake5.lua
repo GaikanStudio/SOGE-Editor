@@ -1,5 +1,6 @@
+include "Dependencies.lua"
 include "Premake5/ext/qt-scripts/qt.lua"
-local qt = premake.extensions.qt
+qt = premake.extensions.qt
 
 local qt_path = "A:/DevTools/Qt/6.5.3/msvc2019_64"
 
@@ -28,6 +29,11 @@ solution "SOGEQtE"
 
     buildpattern = "%{cfg.buildcfg}.%{cfg.system}.%{cfg.architecture}"
 
+
+    group "Dependencies"
+        include "3rdparty/ADS/premake5.lua"
+    group ""
+
     project "SOGEQtE"
         location "SOGEQtE"
         kind "ConsoleApp"
@@ -47,7 +53,8 @@ solution "SOGEQtE"
 
         includedirs
         {
-            "%{wks.location}/%{prj.name}/include"
+            "%{wks.location}/%{prj.name}/include",
+            "%{wks.location}/%{IncludeThirdpartyDirs.ADS}"
         }
 
         qt.enable()
@@ -55,6 +62,12 @@ solution "SOGEQtE"
         qtpath(qt_path)
         qtprefix("Qt6")
         qtmodules { "core", "gui", "widgets", "qml", "network"}
+
+        links
+        {
+            "ADS"
+        }
+
         filter "configurations:Debug"
             symbols "on"
             qtsuffix "d"
@@ -87,4 +100,11 @@ solution "SOGEQtE"
             postbuildcommands
             {
                 setQtDeployOnPostbuild("%{wks.location}/%{prj.name}/%{prj.name}.exe", false)
+            }
+
+        filter "system:windows"
+            systemversion "latest"
+
+            defines
+            {
             }
