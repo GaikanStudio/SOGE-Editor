@@ -6,6 +6,8 @@
 
 #include "SOGEQtE/Widgets/Outliner/OutlinerWidget.hpp"
 #include "SOGEQtE/Widgets/ContentBrowser/ContentBrowserWidget.hpp"
+#include "SOGEQtE/Widgets/Viewport/ViewportWidget.hpp"
+
 
 namespace Ui
 {
@@ -24,8 +26,10 @@ namespace sogeqte
 
         // Main docking container
         ads::CDockManager* m_dockManager;
+
         QTEOutlinerWidget* m_outlinerWidget;
         QTEContentBrowserWidget* m_contentBrowserWidget;
+        QTEViewportWidget* m_viewportWidget;
 
     public:
         explicit QTEMainWindow(QWidget* aParent = nullptr);
