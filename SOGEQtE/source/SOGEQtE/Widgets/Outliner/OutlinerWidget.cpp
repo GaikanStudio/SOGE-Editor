@@ -4,7 +4,7 @@
 
 namespace sogeqte
 {
-    QTEOutlinerWidget::QTEOutlinerWidget(QWidget* aParent) : QWidget(nullptr), m_genUi(new Ui::OutlinerWidget())
+    QTEOutlinerWidget::QTEOutlinerWidget(QWidget* aParent) : QWidget(aParent), m_genUi(new Ui::OutlinerWidget())
     {
         m_genUi->setupUi(this);
     }

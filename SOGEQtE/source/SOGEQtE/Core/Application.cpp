@@ -28,7 +28,6 @@ namespace sogeqte
         }
 
         m_mainWindow = new QTEMainWindow();
-        m_outlinerWidget = new QTEOutlinerWidget(m_mainWindow);
     }
 
     QTEApplication::~QTEApplication()
@@ -38,7 +37,6 @@ namespace sogeqte
 
     int QTEApplication::Run()
     {
-        m_outlinerWidget->show();
         m_mainWindow->show();
         return m_qtApplication->exec();
     }

@@ -23,7 +23,6 @@ namespace sogeqte
         // Widgets
 
         QTEMainWindow* m_mainWindow;
-        QTEOutlinerWidget* m_outlinerWidget;
 
     public:
         QTEApplication(int& argc, char** argv, const QString& aApplicationName);

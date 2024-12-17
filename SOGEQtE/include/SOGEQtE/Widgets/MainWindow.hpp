@@ -2,9 +2,10 @@
 #define SOGE_WIDGETS_MAINWINDOW_HPP
 
 #include <QtWidgets/QMainWindow.h>
-
-// ADS/DockManager
 #include <DockManager.h>
+
+#include "SOGEQtE/Widgets/Outliner/OutlinerWidget.hpp"
+#include "SOGEQtE/Widgets/ContentBrowser/ContentBrowserWidget.hpp"
 
 namespace Ui
 {
@@ -23,6 +24,8 @@ namespace sogeqte
 
         // Main docking container
         ads::CDockManager* m_dockManager;
+        QTEOutlinerWidget* m_outlinerWidget;
+        QTEContentBrowserWidget* m_contentBrowserWidget;
 
     public:
         explicit QTEMainWindow(QWidget* aParent = nullptr);

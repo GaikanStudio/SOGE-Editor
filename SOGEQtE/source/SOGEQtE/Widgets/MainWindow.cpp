@@ -1,6 +1,8 @@
 #include "SOGEQtE/Widgets/MainWindow.hpp"
 #include "SOGEQtE/Widgets/ui_MainWindow.hpp"
 
+#include <QtWidgets/QLabel.h>
+
 
 namespace sogeqte
 {
@@ -20,6 +22,18 @@ namespace sogeqte
         m_genUi->setupUi(this);
 
         m_dockManager = new ads::CDockManager(this);
+        m_outlinerWidget = new QTEOutlinerWidget();
+        m_contentBrowserWidget = new QTEContentBrowserWidget();
+
+        ads::CDockWidget* outlinerDock = new ads::CDockWidget("Outliner");
+        ads::CDockWidget* contentBrowserDock = new ads::CDockWidget("ContentBrowser");
+
+        outlinerDock->setWidget(m_outlinerWidget);
+        contentBrowserDock->setWidget(m_contentBrowserWidget);
+
+        // Add the dock widget to the top dock widget area
+        m_dockManager->addDockWidget(ads::RightDockWidgetArea, outlinerDock);
+        m_dockManager->addDockWidget(ads::TopDockWidgetArea, contentBrowserDock);
     }
 
     QTEMainWindow::~QTEMainWindow()

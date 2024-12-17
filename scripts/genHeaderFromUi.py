@@ -59,7 +59,7 @@ if __name__ == "__main__":
     # args = parser.parse_args()
     # include_dir = args.include
     # uic_path = args.uic
-    include_dir = r"A:\repo\SOGEQtE\SOGEQtE\include"
+    include_dir = r"A:\repo\SOGEQtE-re\SOGEQtE\include"
     uic_path = r"A:\DevTools\Qt\6.5.3\msvc2019_64\bin\uic.exe"
 
     if not os.path.exists(HASH_PATH):
@@ -80,6 +80,8 @@ if __name__ == "__main__":
             filepath = os.path.join(root, file)
             filename = os.path.basename(filepath)
             if filepath.endswith(UI_EXT):
+                print(f"Found ui file {filepath}")
+
                 relative_path = Path(filepath).relative_to(include_dir)
                 ui_header_path = os.path.dirname(filepath)
                 ui_header_name = "ui_" + filename.replace(UI_EXT, HEADER_EXT)
