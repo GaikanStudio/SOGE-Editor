@@ -16,6 +16,11 @@ namespace sogeqte
     //
     // !IMPORTANT NOTE
 
+    static void initResource()
+    {
+        Q_INIT_RESOURCE(ads);
+    }
+
     QTEMainWindow::QTEMainWindow(QWidget* aParent) : QMainWindow(aParent), m_genUi(new Ui::MainWindow())
     {
         this->setMinimumSize(800, 600);
@@ -35,9 +40,9 @@ namespace sogeqte
         viewportDock->setWidget(m_viewportWidget);
 
         // Add the dock widget to the top dock widget area
-        m_dockManager->addDockWidget(ads::RightDockWidgetArea, outlinerDock);
         m_dockManager->addDockWidget(ads::TopDockWidgetArea, contentBrowserDock);
         m_dockManager->addDockWidget(ads::CenterDockWidgetArea, viewportDock);
+        m_dockManager->addDockWidget(ads::RightDockWidgetArea, outlinerDock);
     }
 
     QTEMainWindow::~QTEMainWindow()
